@@ -12,20 +12,16 @@ pub struct FlightsPage {
 
 pub async fn render() -> Html<String> {
     let mut t = FlightsPage::default();
-    match get_connection() {
-        Ok(c) => match flights_repo::get_flights() {
-            Ok(flights) => {
-                t.flights = flights;
-
-                Html(t.render().expect("Can't render"))
-            }
-            Err(err) => todo!(),
-        },
-        Err(err) => {
-            t.err = err.to_string();
+    // match get_connection() {
+    match flights_repo::get_flights() {
+        Ok(flights) => {
+            t.flights = flights;
 
             Html(t.render().expect("Can't render"))
         }
+        Err(err) => {
+            t.err = err.to_string();
+            Html(t.render().expect("Can't render"))
+        }
     }
-    // Html(t.render().expect("Can't render"))
 }

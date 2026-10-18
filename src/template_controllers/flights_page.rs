@@ -1,7 +1,7 @@
 use askama::Template;
 use axum::response::Html;
 
-use crate::{db::get_connection, infrastructure::repos::flights_repo, models::flight::Entity};
+use crate::{infrastructure::repos::flights_repo, models::flight::Entity};
 
 #[derive(Template, Default)]
 #[template(path = "flights.html")]
@@ -12,11 +12,9 @@ pub struct FlightsPage {
 
 pub async fn render() -> Html<String> {
     let mut t = FlightsPage::default();
-    // match get_connection() {
     match flights_repo::get_flights() {
         Ok(flights) => {
             t.flights = flights;
-
             Html(t.render().expect("Can't render"))
         }
         Err(err) => {

@@ -1,5 +1,3 @@
-use std::sync::Arc;
-
 use axum::{
     Router,
     http::{
@@ -8,7 +6,6 @@ use axum::{
     },
     routing::get,
 };
-use oracle::{Connection, RowValue};
 use tower_http::{
     cors::CorsLayer,
     services::{ServeDir, ServeFile},
@@ -21,13 +18,13 @@ mod models;
 mod responses;
 mod template_controllers;
 
-#[derive(RowValue, Debug)]
-struct Entity {
-    tail: Option<String>,
-    flight: Option<String>,
-    iata1: Option<String>,
-    iata2: Option<String>,
-}
+// #[derive(RowValue, Debug)]
+// struct Entity {
+//     tail: Option<String>,
+//     flight: Option<String>,
+//     iata1: Option<String>,
+//     iata2: Option<String>,
+// }
 
 #[tokio::main]
 async fn main() {

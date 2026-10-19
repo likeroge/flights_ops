@@ -31,8 +31,8 @@ async fn main() {
     dotenvy::dotenv().ok();
 
     let static_files =
-        ServeDir::new("./static").not_found_service(ServeFile::new("./static/index.html"));
-    // ServeDir::new("./front/dist").not_found_service(ServeFile::new("./front/dist/index.html"));
+        // ServeDir::new("./static").not_found_service(ServeFile::new("./static/index.html"));
+    ServeDir::new("./front/dist").not_found_service(ServeFile::new("./front/dist/index.html"));
     let cors = CorsLayer::new()
         .allow_origin("*".parse::<HeaderValue>().expect("Cannot parse"))
         .allow_methods([

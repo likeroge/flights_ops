@@ -9,4 +9,12 @@ export type Flight = {
   status?: string;
   tail?: string;
   udate: Date;
+  depMs: number;
+  arrMs: number;
+  durationMs: number;
+};
+
+export type FlightsByAircraft = {
+  tail: string;
+  flights: Flight[];
 };

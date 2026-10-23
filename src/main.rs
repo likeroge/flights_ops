@@ -53,6 +53,7 @@ async fn main() {
     // let c = Arc::new(conn);
     let router = Router::new()
         .route("/api/flights", get(api::flights::list_flights))
+        .route("/api/flights2", get(api::flights::list_flights_by_aircraft))
         .route("/home", get(template_controllers::home::render))
         .route("/flights", get(template_controllers::flights_page::render))
         .layer(cors)

@@ -6,6 +6,7 @@ export function App() {
 
   return (
     <>
+
       <h1>Frontend App</h1>
       <button onClick={() => navigate("/flights")}>Flights</button>{" "}
     </>

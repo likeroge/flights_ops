@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router";
 import App from "./App";
-import { Flights } from "./pages/flights/Flights";
+import { Flight2Page } from "./pages/flights/Flight2Page";
 
 export const router = createBrowserRouter([
   {
@@ -9,6 +9,6 @@ export const router = createBrowserRouter([
   },
   {
     path: "/flights",
-    Component: Flights,
+    Component: Flight2Page,
   },
 ]);

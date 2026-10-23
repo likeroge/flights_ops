@@ -1,12 +1,12 @@
 use askama::Template;
 use axum::response::Html;
 
-use crate::{infrastructure::repos::flights_repo, models::flight::Entity};
+use crate::{infrastructure::repos::flights_repo, models::flight::Flight};
 
 #[derive(Template, Default)]
 #[template(path = "flights.html")]
 pub struct FlightsPage {
-    flights: Vec<Entity>,
+    flights: Vec<Flight>,
     err: String,
 }
 

@@ -1,0 +1,226 @@
+.ops-timeline {
+  font-family: Arial, sans-serif;
+  border: 1px solid #ccc;
+}
+
+.flight-row {
+  display: flex;
+  border-bottom: 1px solid #eee;
+  position: relative;
+  height: 50px; /* Фиксированная высота строки для наглядности */
+}
+
+.tail-number {
+  width: 120px;
+  min-width: 120px;
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  border-right: 1px solid #ccc;
+  background: #f8f9fa;
+}
+
+.timeline-container {
+  flex: 1;
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Линия текущего времени */
+.now-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background-color: #d9534f; /* Красный */
+  z-index: 10;
+  pointer-events: none;
+}
+
+/* Полоса рейса */
+.flight-bar {
+  position: absolute;
+  top: 5px;
+  height: 40px;
+  line-height: 40px;
+  color: white;
+  font-size: 12px;
+  text-align: center;
+  overflow: hidden;
+  cursor: pointer;
+  border-radius: 3px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  z-index: 5;
+}
+
+.flight-bar.future {
+  background-color: #5bc0de; /* Голубой */
+}
+
+.flight-bar.in-progress {
+  background-color: #5cb85c; /* Зеленый - рейс в воздухе/на посадке */
+  font-weight: bold;
+}
+
+.flight-bar.completed {
+  background-color: #aaa; /* Серый */
+}
+
+.flight-info {
+  padding: 0 0px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.ops-timeline-wrapper{
+    position: relative;
+    font-family: Arial, sans-serif;
+    background: #fff;
+}
+
+.time-ruler{
+position: relative; height: 40px; background: #f8f9fa; border-bottom: 1px solid #dee2e6; display: flex; align-items: flex-end; overflow: hidden;
+}
+
+.tick { position: absolute; bottom: 0; text-align: center; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; }
+
+.ops-timeline-wrapper {
+  position: relative;
+  font-family: Arial, sans-serif;
+  background: #fff;
+}
+
+/* Шкала времени */
+.time-ruler {
+  position: relative;
+  height: 40px;
+  background: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+}
+
+.tick {
+  position: absolute;
+  bottom: 0;
+  text-align: center;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+/* Вертикальная линия метки */
+.tick-line {
+  width: 1px;
+  height: 12px;
+  background: #ced4da;
+}
+
+/* Утолщенная линия для смены даты */
+.date-divider .tick-line {
+  height: 20px;
+  background: #adb5bd;
+}
+
+.tick-label {
+  white-space: nowrap;
+  font-size: 11px;
+  color: #495057;
+}
+
+.time {
+  font-weight: 500;
+}
+
+.date {
+  margin-top: 2px;
+  color: #6c757d;
+}
+
+/* Тело с рейсами */
+.ops-timeline-body {
+  position: relative;
+  min-height: 200px;
+}
+
+/* Обновление стилей .flight-row для выравнивания со шкалой */
+.flight-row {
+  position: relative;
+  display: flex;
+  min-height: 40px; /* Высота строки должна совпадать с шагом сетки */
+}
+
+/* Фоновые вертикальные линии (опционально, для имитации сетки) */
+.timeline-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(90deg, transparent 99%, #e9ecef 99%),
+    linear-gradient(90deg, transparent 98%, #e9ecef 98%),
+    linear-gradient(90deg, transparent 97%, #e9ecef 97%);
+  /* В реальном коде лучше генерировать эти линии динамически JS-ом
+     только для позиций tick.left, чтобы не перегружать браузер */
+  background-size: 100% 40px; /* Повторять каждые 40px (1 час) */
+  z-index: 1;
+}
+
+/* Поднимаем рейсы и линию "Сейчас" над сеткой */
+.flight-bar, .now-line {
+  z-index: 5;
+}
+
+
+.flight_card {
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 16px;
+  background-color: #ffffff;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  color: #1f2937;
+}
+
+.flight_card-header {
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #6b7280;
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+
+.flight_card-value {
+  font-size: 18px;
+  font-weight: 700;
+  color: #111827;
+  line-height: 1.3;
+}
+
+.flight_card-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 12px;
+  border-bottom: 1px solid #f3f4f6;
+  padding-bottom: 12px;
+}
+
+.flight_card-row:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.flight_card-number-block {
+  margin-bottom: 16px;
+}

@@ -6,6 +6,7 @@ use axum::{
     },
     routing::get,
 };
+use tokio::signal;
 use tower_http::{
     cors::CorsLayer,
     services::{ServeDir, ServeFile},
@@ -49,11 +50,9 @@ async fn main() {
             ACCESS_CONTROL_ALLOW_ORIGIN,
         ]);
 
-    // let conn = get_connection().expect("Can't create connection");
-    // let c = Arc::new(conn);
     let router = Router::new()
-        .route("/api/flights", get(api::flights::list_flights))
-        .route("/api/flights2", get(api::flights::list_flights_by_aircraft))
+        // .route("/api/flights", get(api::flights::list_flights))
+        .route("/api/flights", get(api::flights::list_flights_by_aircraft))
         .route("/home", get(template_controllers::home::render))
         .route("/flights", get(template_controllers::flights_page::render))
         .layer(cors)
@@ -67,23 +66,12 @@ async fn main() {
         .await
         .expect("Cant start server");
 
-    axum::serve(listener, router).await.expect("Cant serve");
-
-    // let conn = Connection::connect("briefing", "BRIF2015", "orantvpn.vda.ru:1521/ORC1")
-    //     .expect("Can't connect to DB");
-    // // let sql = "SELECT TAIL, AIRLINE, FLIGHT, IATA1, ICAO1, NAME1, ETD, IATA2, ICAO2, NAME2, ETA, STATUS, TKFAL, ALT1, ALT2, ALT3,
-    // // ALT4, ETD_UNIX, ETA_UNIX, UDATE_UNIX FROM POTKOM.LEGS2BRIEF_VIE;";
-
-    // let sql2 = "SELECT TAIL, FLIGHT, IATA1, IATA2 FROM POTKOM.LEGS2BRIEF_VIE WHERE ETD BETWEEN SYSDATE-1 AND SYSDATE+3";
-    // let mut stmt = conn
-    //     .statement(sql2)
-    //     .build()
-    //     .expect("Can't create statement");
-
-    // let rows = stmt.query_as::<Entity>(&[]).expect("Can't get query");
-
-    // for row_result in rows {
-    //     let row = row_result.expect("Can't get row");
-    //     println!("{:?}", row);
-    // }
+    let server = axum::serve(listener, router).with_graceful_shutdown(async move {
+        if let Err(e) = signal::ctrl_c().await {
+            eprintln!("Error waiting for Ctrl+c: {}", e);
+        }
+    });
+    if let Err(e) = server.await {
+        eprintln!("Server error {}", e);
+    }
 }

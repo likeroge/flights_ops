@@ -12,6 +12,8 @@ export type Flight = {
   depMs: number;
   arrMs: number;
   durationMs: number;
+
+  id: number;
 };
 
 export type FlightsByAircraft = {

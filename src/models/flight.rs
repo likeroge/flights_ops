@@ -3,6 +3,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(RowValue, Debug, Serialize, Deserialize, PartialEq, PartialOrd, Clone)]
 pub struct Flight {
+    pub id: Option<u64>,
     pub tail: Option<String>,
     pub flight: Option<String>,
     pub icao1: Option<String>,
